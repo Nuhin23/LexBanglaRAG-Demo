@@ -15,7 +15,26 @@ Developed at the **Department of Software Engineering, Daffodil International Un
 
 ## 📌 System Architecture
 
-![System Architecture](figures/fig1_system_architecture.png)
+![System Architecture](figures/fig1_system_architecture.jpeg)
+
+---
+
+## 📓 Complete Research Notebooks Pipeline
+
+All experimental and evaluation stages are modularized, self-contained, and reproducible in the `notebooks/` directory:
+
+| Notebook | Research Stage & Objective | Key Output / Metric |
+| :--- | :--- | :--- |
+| **`01_Data_Preprocessing_and_Corpus_Builder.ipynb`** | 49 Acts extraction, text cleaning, section parsing & normalization | 1,575 statutory sections (BDLegal-Corpus-v1) |
+| **`02_Chunking_Strategy_Ablation_Experiment.ipynb`** | Fixed-size vs Recursive vs Section-aware chunking ablation | Section-aware preserves statutory integrity |
+| **`03_GoldQA_Benchmark_Generation_Pipeline.ipynb`** | Gemini-assisted gold dispute generation & verification protocol | 180 realistic benchmark QA pairs (BDLegal-GoldQA-180) |
+| **`04_Raw_Hybrid_Retrieval_Ablation.ipynb`** | Raw BM25 vs Dense BGE-M3 baseline retrieval on raw clauses | Raw Dense BGE-M3 MRR: 0.7118 |
+| **`05_Context_Enriched_Retrieval_Benchmark.ipynb`** | Statutory Context Enrichment (SCE) hierarchical prefix evaluation | Candidate MRR: **0.8087**, Recall@5: **93.89%** |
+| **`06a_LexBanglaRAG_Qwen14B_Champion.ipynb`** | Primary production pipeline: Qwen2.5-14B (4-bit NF4) + SCE | Token F1: **0.3528**, Act: **55.56%**, Section: **53.89%** |
+| **`06b_LexBanglaRAG_Qwen7B_Scaling.ipynb`** | Mid-scale generator evaluation: Qwen2.5-7B (4-bit NF4) | Hardware scaling audit on 16GB T4 GPU |
+| **`06c_LexBanglaRAG_Gemma2_2B_Edge.ipynb`** | Edge-scale generator evaluation: Google Gemma-2 (2B FP16) | Parameter efficiency & low-latency inference |
+| **`06d_LexBanglaRAG_DeepSeekR1_Reasoning.ipynb`** | Distilled reasoning model evaluation: DeepSeek-R1-Distill-Qwen | Chain-of-thought analysis & cross-lingual leakage audit |
+| **`07_ClosedBook_NoRAG_Hallucination_Baseline.ipynb`** | Parametric hallucination baseline study without retrieval | Quantifies 73.89% pure fabrication failure mode |
 
 ---
 
@@ -23,7 +42,7 @@ Developed at the **Department of Software Engineering, Daffodil International Un
 
 1. **🔍 Interactive Statutory Question Answering:** 
    - Ask any legal dispute question in colloquial Bengali.
-   - Or select from **10+ real-world citizen dispute archetypes** across major Bangladeshi Acts (Labor Act, EPZ Labor, Child Rights, Road Transport, Consumer Rights, Dowry Prohibition, Cyber Security, etc.).
+   - Or select from **10+ real-world citizen dispute archetypes** across major statutory pillars (Labor Act, EPZ Labor, Child Rights, Dowry Prohibition, Child Marriage, Family Courts, Land Acquisition, etc.).
 2. **📚 Transparent Evidence Inspection (Retriever):**
    - View the exact retrieved parliamentary Act, section number, chapter metadata, and verbatim legal text.
 3. **⚡ RAG vs. No-RAG Hallucination Comparison (Supervisor Highlight):**
@@ -44,7 +63,7 @@ Simply double-click the **`run_demo.bat`** file in the project folder. It will a
 
 ### Option 2: Via Terminal / PowerShell
 1. Open PowerShell or Command Prompt in this folder.
-2. Install the lightweight requirements:
+2. Install requirements:
    ```bash
    pip install -r requirements.txt
    ```
@@ -54,19 +73,6 @@ Simply double-click the **`run_demo.bat`** file in the project folder. It will a
    ```
 4. The application will open automatically in your browser at:
    `http://localhost:8501`
-
----
-
-## 🌐 How to Deploy for Free on Hugging Face Spaces (Live Link for Supervisor)
-
-1. Create a free account at [Hugging Face](https://huggingface.co/).
-2. Click **New Space** (https://huggingface.co/new-space).
-3. Fill in:
-   - **Space Name:** `LexBanglaRAG`
-   - **SDK:** `Streamlit`
-   - **License:** `Open Source (MIT / CC-BY-4.0)`
-4. Upload all files from this folder (`app.py`, `requirements.txt`, `README.md`, `data/`, `figures/`).
-5. Hugging Face will automatically build and give you a public URL (e.g., `https://huggingface.co/spaces/your-username/LexBanglaRAG`) that your supervisor can open directly on their phone or laptop!
 
 ---
 
@@ -80,8 +86,8 @@ Simply double-click the **`run_demo.bat`** file in the project folder. It will a
 | **Qwen2.5-3B + LexBanglaRAG** | FP16 | 50.56% | 50.00% | 0.3370 |
 | **Qwen2.5-14B + LexBanglaRAG (Peak)**| 4-bit NF4 | **55.56%** | **53.89%** | **0.3528** |
 
-- **Statutory Context Enrichment** boosts dense retrieval MRR to **0.8250** (Recall@20: 98.89%).
-- Evidence grounding slashes pure statutory fabrication by **29.45 percentage points** ($p < 10^{-12}$).
+- **Statutory Context Enrichment** boosts dense retrieval MRR to **0.8087** (Recall@5: 93.89%, Recall@20: 98.33%).
+- Evidence grounding slashes pure statutory fabrication from 73.89% down to 44.44% ($p < 10^{-12}$).
 
 ---
 
