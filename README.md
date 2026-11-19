@@ -89,6 +89,13 @@ Simply double-click the **`run_demo.bat`** file in the project folder. It will a
 - **Statutory Context Enrichment** boosts dense retrieval MRR to **0.8087** (Recall@5: 93.89%, Recall@20: 98.33%).
 - Evidence grounding slashes pure statutory fabrication from 73.89% down to 44.44% ($p < 10^{-12}$).
 
+### 📈 Empirical Research Visualizations
+
+| Figure 2: Cross-Scale Generative Performance | Figure 3: Four-Tier Hallucination Taxonomy |
+| :---: | :---: |
+| ![Figure 2: Generation Scaling](figures/fig2_generation_scaling_comparison.png) | ![Figure 3: Hallucination Breakdown](figures/fig3_hallucination_taxonomy_breakdown.png) |
+| *Citation accuracies & Token F1 across models* | *Evidence grounding suppresses pure statutory fabrication* |
+
 ---
 
 ## 🎓 Academic Affiliation

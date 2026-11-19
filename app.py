@@ -654,6 +654,9 @@ with tab3:
 # ------------------------------------------------------------------------------
 with tab4:
     st.markdown("### ℹ️ সিস্টেম আর্কিটেকচার ও রিসার্চ মেথডোলজি (Thesis Chapter 3)")
+    fig1_path = os.path.join(os.path.dirname(__file__), "figures", "fig1_system_architecture.jpeg")
+    if os.path.exists(fig1_path):
+        st.image(fig1_path, caption="Figure 1: Architecture of the LexBanglaRAG Retrieval-Augmented Generation Framework", use_container_width=True)
     st.markdown("""
     #### 🏗️ ত্রি-স্তর বিশিষ্ট LexBanglaRAG পাইপলাইন:
     1. **Statutory Context Enrichment (SCE):**
